@@ -2,14 +2,22 @@ version: '3.7'
 services:
 
   node-ci-template:
-    container_name: node-ci-template
+    container_name: mirador-coverpages
     build:
       context: ./
       dockerfile: Dockerfile
     env_file: .env
     command: npm run devserverstart
     volumes:
-      - './:/home/exampleadm'
-      - '/home/exampleadm/node_modules'
+      - './:/home/mpsadm'
+      - '/home/mpsadm/node_modules'
     ports:
-      - "23033:8080"
+      - "23024:8080"
+    # Join this service to a custom docker network
+    networks:
+      - mps-net
+
+  # Create a custom docker network if it does not exist already
+networks:
+  mps-net:
+    name: mps-net

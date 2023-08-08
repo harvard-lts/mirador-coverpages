@@ -1,9 +1,9 @@
 FROM node:lts-slim
 
-ENV APP_ID_NUMBER=199
-ENV APP_ID_NAME=exampleadm
-ENV GROUP_ID_NUMBER=1636
-ENV GROUP_ID_NAME=appcommon
+ENV APP_ID_NUMBER=193
+ENV APP_ID_NAME=mpsadm
+ENV GROUP_ID_NUMBER=199
+ENV GROUP_ID_NAME=appadmin
 
 RUN apt-get -y update && \
   deluser node && \

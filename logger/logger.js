@@ -1,4 +1,5 @@
-const winston = require('winston');
+const { createLogger, format, transports } = require('winston');
+const { combine, timestamp, label, printf } = format;
 const path = require('path');
 const os = require('os');
 const hostname = os.hostname();
@@ -31,12 +32,23 @@ logger.skipLogs = (req, res) => {
   return skipLogsAnswer;
 }
 
+const loggerFormat = printf(info => {
+  if(info instanceof Error) {
+      return `${info.timestamp} ${info.level}: ${info.message} ${info.stack}`;
+  }
+  return `${info.timestamp} ${info.level}: ${info.message}`;
+});
+
 // Console logs and errors write to file using winston
-logger.console = winston.createLogger({
+logger.console = createLogger({
   level: logger.logLevel,
-  format: winston.format.json(),
+  format: combine(
+    format.splat(),
+    timestamp(),
+    loggerFormat
+  ),
   transports: [
-    new winston.transports.DailyRotateFile(
+    new transports.DailyRotateFile(
       {
         filename: `${hostname}_console_%DATE%.log`,
         dirname: `logs`,
@@ -44,7 +56,7 @@ logger.console = winston.createLogger({
         maxSize: '20m',
         maxFiles: '14d'
       }),
-    new winston.transports.Console({ format: winston.format.simple() })
+    new transports.Console({ format: format.simple() })
   ]
 });
 
