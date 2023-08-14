@@ -1,21 +1,25 @@
 // Required Modules
 const createError = require('http-errors');
 const express = require('express');
+const exphbs  = require('express-handlebars');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const hbs = exphbs.create({extname: '.hbs'});
 const helmet = require('helmet');
 const { requestLogStream, console: consoleLogger, skipLogs } = require('./logger/logger.js');
 const requestLogger = require('morgan');
 
 // Application Routes
-const exampleRouter = require('./routes/api/example');
+const coverpageRouter = require('./routes/api/coverpage');
 const healthRouter  = require('./routes/api/healthcheck');
+const pdfRouter  = require('./routes/api/pdf');
 
 const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.engine('.hbs', hbs.engine);
+app.set('view engine', '.hbs');
 // http://expressjs.com/en/guide/behind-proxies.html
 app.set('trust proxy', true);
 
@@ -34,8 +38,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Automatically set default HTTP response headers
 app.use(helmet());
 
-app.use('/example', exampleRouter);
+app.use('/coverpage', coverpageRouter);
 app.use('/healthcheck', healthRouter);
+app.use('/pdf', pdfRouter);
 
 // Error handler
 app.use(function (err, req, res, next) {

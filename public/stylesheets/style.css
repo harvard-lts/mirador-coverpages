@@ -1,8 +1,133 @@
+@page {
+  size: letter;
+  margin: 24pt;
+}
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Merriweather', 'Noto Serif', 'Noto Sans', serif;
 }
 
 a {
-  color: #00B7FF;
+  text-decoration: none;
+}
+
+dd {
+  margin-inline-start: 8pt;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+main .sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+main .metadata {
+  font-size: 10pt;
+}
+
+.sidebar {
+  flex-grow: 0;
+  padding-right: 24pt;
+  border-right: 1pt solid black;
+}
+
+.sidebar img.preview {
+  max-width: 128pt;
+  margin-bottom: 36pt;
+}
+
+.sidebar figure {
+  margin-left: 0;
+  margin-bottom: 24pt;
+  max-width: 128pt;
+  font-size: 10pt;
+}
+
+.sidebar figcaption {
+  margin-top: 8pt;
+}
+
+.required {
+  font-size: 10pt;
+}
+
+.required h2 {
+  font-size: 12pt;
+  font-weight: 700;
+  margin-bottom: 8pt;
+}
+
+figure.attribution img,
+figure.license img {
+  max-width: 128pt;
+}
+
+figure.license {
+  word-break: break-all;
+}
+
+.manifest-link {
+  z-index: 500;
+  max-width: 190pt;
+  background-color: white;
+  font-size: 8pt;
+}
+
+.pdiiif-credit {
+  font-size: 8pt;
+  margin-right: 8pt;
+}
+
+.main {
+  flex-grow: 1;
+  padding-left: 24pt;
+}
+
+.main .metadata .label {
+  font-weight: 700;
+}
+
+.propertyvalue {
+  page-break-inside: avoid;
+  break-inside: avoid-page;
+  margin-bottom: 4pt;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  width: 100%;
+  gap: 8pt;
+  justify-content: space-between;
+  page-break-before: auto;
+  page-break-after: auto;
+  page-break-inside: avoid;
+}
+
+footer figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 128pt;
+}
+
+footer figcaption {
+  font-size: 8pt;
+  margin-top: 4pt;
+}
+
+footer .version {
+  color: lightgray;
+  font-size: 5pt;
+  text-align: right;
+  margin-right: 12pt;
+  margin-top: -4pt;
 }

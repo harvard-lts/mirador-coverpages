@@ -1,0 +1,122 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>
+      Cover Page
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Noto+Sans:wght@400;700&family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+  </head>
+  <body>
+    <main>
+      <div class="sidebar">
+        {{#if thumbUrl}}
+          <img class="preview" src="{{thumbUrl}}" alt="Preview Image" />
+        {{/if}}
+
+        {{#if providerText}}
+          <p>
+            {{#if providerLink}}
+              <a href="{{providerLink}}">
+                {{providerText}}
+              </a>
+            {{else}}
+              {{providerText}}
+            {{/if}}
+          </p>
+        {{/if}}
+
+        {{#if rightsLogo}}
+          <figure class="license">
+            {{#if rightsLink}}
+            <a href="{{rightsLink}}">
+              <img class="logo" src="{{rightsLogo}}" />
+            </a>
+            {{else}}
+            <img class="logo" src="{{rightsLogo}}" />
+            {{/if}}
+            {{#if rightsText}}
+              <figcaption>
+                {{#if rightsLink}}
+                  <a href="{{rightsLink}}">
+                    {{rightsText}}
+                  </a>
+                {{else}}
+                  {{rightsText}}
+                {{/if}}
+              </figcaption>
+            {{/if}}
+          </figure>
+        {{else if rightsText}}
+          <p>
+            {{#if rightsLink}}
+              <a href="{{rightsLink}}">
+                {{rightsText}}
+              </a>
+            {{else}}
+              {{rightsText}}
+            {{/if}}
+          </p>
+        {{/if}}
+        {{#if requiredStatement}}
+          <div class="required">
+            <h2>
+              {{requiredStatement.label}}
+            </h2>
+              {{#sanitizeHtml requiredStatement.value}}{{/sanitizeHtml}}
+          </div>
+        {{/if}}
+      </div>
+      <div class="main">
+        <h1 class="title">
+          {{title}}
+        </h1>
+        <dl class="metadata">
+          {{#each metadata}}
+            <div class="propertyvalue">
+              <dt class="label">
+                {{this.[0]}}
+              </dt>
+              <dd class="value">
+                {{#if (isArray this.[1])}}
+                  <ul>
+                    {{#each this.[1]}}
+                      <li>
+                        {{#sanitizeHtml this}}{{/sanitizeHtml}}
+                      </li>
+                    {{/each}}
+                  </ul>
+                {{else}}
+                  {{#sanitizeHtml this.[1]}}{{/sanitizeHtml}}
+                {{/if}}
+              </dd>
+            </div>
+          {{/each}}
+        </dl>
+      </div>
+    </main>
+    <footer>
+      <p class="manifest-link">
+        <a href="{{manifestUrl}}">
+          {{manifestUrl}}
+        </a>
+      </p>
+      <p class="pdiiif-credit">
+        Created with PDIIIF<br />
+        <a href="https://pdiiif.jbaiter.de">
+          https://pdiiif.jbaiter.de
+        </a>
+      </p>
+    </footer>
+    <script>
+      const mainElem = document.querySelector('main');
+      if (mainElem.offsetHeight > 800) {
+        const footer = document.querySelector('footer');
+        footer.style.position = 'relative';
+        footer.style.marginTop = '96pt';
+      }
+    </script>
+  </body>
+</html>
